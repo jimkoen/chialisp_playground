@@ -1,0 +1,44 @@
+; FizzBuzz in chialisp
+; Created on 09-12-2021 by awesomemilou (@jimkoen on GitHub)
+; Licensed under CC0 1.0 Universal (CC0 1.0 Public Domain Dedication)
+(mod (arg_one)
+  ; function definitions
+  ; r returns every element in a list, except the first
+  ; making it great for obtaining the remainder of the
+  ; divmod operation!
+  (defun fizz (input)
+    (if (= (r (divmod input 3)) 0)
+      (q . "fizz")
+      input)
+    )
+  (defun buzz (input)
+    (if (= (r (divmod input 5)) 0)
+      (q . "buzz")
+      (fizz input)
+    )
+  )
+  (defun fizzbuzz (input)
+    (if
+      (all (= (r (divmod input 5)) 0) (= (r (divmod input 3)) 0))
+        (q . "fizzbuzz")
+        (buzz input)
+    )
+  )
+  (defun sequence (counter limit result_list)
+    (if (not (= (- limit counter) 0))
+    (c (c result_list (fizzbuzz counter)) (sequence (+ counter 1) limit result_list))
+    result_list
+    )
+    )
+  (defun main ( input )
+  ; We increment the input by one that it itself will be evaluated
+  ; by fizzbuzz as well
+  ; Otherwise off by one error
+
+  ; limit is given a constant value of 1 (one) to avoid
+  ; evaluating null in fizzbuzz
+    (sequence 1 (+ input 1) ())
+  )
+  (main arg_one)
+)
+
